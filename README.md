@@ -1,8 +1,8 @@
-- Os projetos estão usando o .net 8 e foi feito usando o microsoft visual studio comunity
+- Os projetos estão usando o .net 8 e foi feito usando o microsoft visual studio community
 - Foi criado dois projetos uma API para o serviço de Lacamentos e outro um worker service para o serviço de consolidado.
 - Os projetos estão com os nomes: "api_lancamento" e "workservice_consolidado" 
 - O banco de dados estamos usando o MySQL
-- Estamos usando o Azure Service Bus para grenciar a fila
+- Estamos usando o Azure Service Bus para gerenciar a fila
 
 *** Configurações para rodar localhost ***
 
