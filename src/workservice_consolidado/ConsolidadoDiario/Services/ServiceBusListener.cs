@@ -110,28 +110,28 @@ namespace ControleConsolidado.Services
                     return;
                 }
 
-                if (dados.TryGetProperty("ClientId", out JsonElement clientIdElement) && clientIdElement.TryGetInt32(out int clientId))
-                {
-                    var dataAtual = DateTime.UtcNow.Date;
+                if (dados.TryGetProperty("ClientId", out JsonElement clientIdElement) && dados.TryGetProperty("Data", out JsonElement dataElement) && clientIdElement.TryGetInt32(out int clientId) && dataElement.TryGetDateTime(out DateTime Data))
+  {
+      var dataAtual = Data;
 
-                    var lancamentos = await dbContext.Lancamentos
-                                                     .Where(l => l.ClientId == clientId && l.Data.Date == dataAtual)
-                                                     .ToListAsync();
+      var lancamentos = await dbContext.Lancamentos
+                                       .Where(l => l.ClientId == clientId && l.Data.Date == dataAtual)
+                                       .ToListAsync();
 
-                    if (lancamentos == null || !lancamentos.Any())
-                    {
-                        _logger.LogInformation($"Nenhum lançamento encontrado para ClientId: {clientId} na data: {dataAtual.ToShortDateString()}.");
-                        return;
-                    }
+      if (lancamentos == null || !lancamentos.Any())
+      {
+          _logger.LogInformation($"Nenhum lançamento encontrado para ClientId: {clientId} na data: {dataAtual.ToShortDateString()}.");
+          return;
+      }
 
-                    var totalValor = lancamentos.Where(l => l.Tipo == 1).Sum(l => l.Valor) -
-                                     lancamentos.Where(l => l.Tipo == 2).Sum(l => l.Valor);
+      var totalValor = lancamentos.Where(l => l.Tipo == 1).Sum(l => l.Valor) -
+                       lancamentos.Where(l => l.Tipo == 2).Sum(l => l.Valor);
 
-                    _logger.LogInformation("\r==============================================================================================\r\r"+
-                        " RESULTADO : \r\r"
-                        + $" ClientId: {clientId}, Total Valor: {totalValor} para a data: {dataAtual.ToShortDateString()}\r\r" +
-                        "==============================================================================================");
-                }
+      _logger.LogInformation("\r==============================================================================================\r\r"+
+          " RESULTADO : \r\r"
+          + $" ClientId: {clientId}, Total Valor: {totalValor} para a data: {dataAtual.ToShortDateString()}\r\r" +
+          "==============================================================================================");
+  }
                 else
                 {
                     _logger.LogWarning("ClientId não encontrado ou inválido na mensagem.");
