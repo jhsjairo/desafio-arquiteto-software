@@ -5,11 +5,8 @@
 - Estamos usando o Azure Service Bus para grenciar a fila
 
 *** Configurações para rodar localhost ***
-1 - Configuração do Azure Servico Bus
-    * no projeto "ConsolidadoDiario" abra o arquivo appsettings.json 
-     "AzureServiceBus" na sessão "ConnectionString": adicione essa string de conexão: "Endpoint=sb://filas-teste.servicebus.windows.net/;SharedAccessKeyName=acesso-enviar;SharedAccessKey=nA150QFwZOC0wOZfDeq+jukS5P9jkKteA+ASbKze/yg=;EntityPath=fila-consolidado"
 
-2 - Configuração do banco de dados:
+1 - Configuração do banco de dados:
     - crie um banco de dados local mysql
     - abra nos projetos a appsettings.json
     - Na "ConnectionStrings": => "DefaultConnection": defina a sua string de conexão
@@ -21,7 +18,7 @@
     - debug o projeto
 
  Testando os Endpoint
- 3 - abra postman ou insonia nos endpoints
+ 2 - abra postman ou insonia nos endpoints
     * https://localhost:(porta)/api/Lancamentos 
     * { "valor": 5, "tipo": 2, "clientId": 2, "data": "2024-08-28T19:18:40.043Z"}
     * valor (valor do lançamento) tipo (1- Crédito 2- Débito) clientId (identificador único do cliente) data (data do lançamento) 
@@ -31,5 +28,5 @@
     * o retorno será exibido no console do projeto
     
  
-4 - Testes unitários
+3 - Testes unitários
    * digite "dotnet test" no terminal do projeto para executar os testes
